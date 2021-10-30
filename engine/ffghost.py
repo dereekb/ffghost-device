@@ -10,6 +10,10 @@ import RPi.GPIO as GPIO
 import time
 
 GPIO.setmode(GPIO.BOARD)
+
+GPIO.setup(37,GPIO.OUT)
+
+
 GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 switch = 1
@@ -84,11 +88,14 @@ try:
         while True:
             switch = GPIO.input(10)
 
+            
+
             if (switch):
                 data = q.get()
                 if rec.AcceptWaveform(data):
                     hasReset = 0
                     print(rec.Result())
+                    GPIO.output(37,100)
                 # else:
                     # print(rec.PartialResult())
                 if dump_fn is not None:
@@ -97,8 +104,9 @@ try:
                 rec.Reset()
                 hasReset = 1
                 print("sleeping")
+                GPIO.output(37,0)
             else:
-                time.sleep(1)
+                time.sleep(.3)
 
                 
 
