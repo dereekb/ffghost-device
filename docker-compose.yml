@@ -25,6 +25,7 @@ services:
     restart: always
     build: ./engine
     volumes:
+      - /code/model
       - ./engine:/code
     depends_on:
      - "ffghost-mongo"
