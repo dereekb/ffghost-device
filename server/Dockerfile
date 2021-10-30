@@ -1,13 +1,19 @@
-FROM python:3.5-buster
+FROM node:14.14-buster
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  hostapd dnsmasq
+# Set the working directory in the container to /code
+WORKDIR /parent/server
 
-# Install python libraries through pip
-# RUN pip3 install 
+# Install Nest CLI
+RUN npm i -g @nestjs/cli
 
-# Set the work directory
-WORKDIR /code
+#Copy package.json to code
+COPY ./package.json .
 
-# Run Gateway
-CMD ["./entry.sh"]
+#Install project dependencies to /code/node_modules
+RUN npm install
+
+# Expose the current folder/volume
+VOLUME ["/parent/server"]
+
+# Run Project by default
+CMD sh d-run.sh

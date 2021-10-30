@@ -1,10 +1,5 @@
 version: '2'
 services:
-  ffghost-python-server:
-    restart: always
-    build: ./server
-    volumes:
-      - ./server:/code
   ffghost-nginx:
     image: nginx:1.19.4
     ports:
@@ -15,3 +10,25 @@ services:
       - ./docker/nginx/certs:/etc/nginx/certs:ro
       - ./dist/dev:/usr/share/nginx/html:ro
       - ./docker/nginx/snippets:/etc/nginx/snippets:ro
+    depends_on:
+     - "ffghost-server"
+  ffghost-server:
+    build: ./server
+    volumes:
+      - ./server:/code
+    ports:
+     - "3000"
+     - "4200:3000"
+    depends_on:
+     - "ffghost-mongo"
+  ffghost-engine:
+    restart: always
+    build: ./engine
+    volumes:
+      - ./engine:/code
+    depends_on:
+     - "ffghost-mongo"
+  ffghost-mongo:
+    image: mongo:4.4.8
+    ports:
+      - "27017:27017"
