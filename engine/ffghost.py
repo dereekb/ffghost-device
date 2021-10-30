@@ -7,11 +7,13 @@ import sounddevice as sd
 import vosk
 import sys
 import RPi.GPIO as GPIO
+import time
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 switch = 1
+hasReset = 0
 
 q = queue.Queue()
 
@@ -72,24 +74,34 @@ try:
     else:
         dump_fn = None
 
-    with sd.RawInputStream(samplerate=args.samplerate, blocksize = 8000, device=args.device, dtype='int16',
+    with sd.RawInputStream(samplerate = 44100, blocksize = 4000, device=args.device, dtype='int16',
                             channels=1, callback=callback):
         print('#' * 80)
         print('Press Ctrl+C to stop the recording')
         print('#' * 80)
 
-        rec = vosk.KaldiRecognizer(model, args.samplerate)
+        rec = vosk.KaldiRecognizer(model, 44100)
         while True:
-            data = q.get()
             switch = GPIO.input(10)
-            print(switch)
 
-            if rec.AcceptWaveform(data):
-                print(rec.Result())
+            if (switch):
+                data = q.get()
+                if rec.AcceptWaveform(data):
+                    hasReset = 0
+                    print(rec.Result())
+                # else:
+                    # print(rec.PartialResult())
+                if dump_fn is not None:
+                    dump_fn.write(data)
+            elif(hasReset == 0):
+                rec.Reset()
+                hasReset = 1
+                print("sleeping")
             else:
-                print(rec.PartialResult())
-            if dump_fn is not None:
-                dump_fn.write(data)
+                time.sleep(1)
+
+                
+
 
 except KeyboardInterrupt:
     print('\nDone')
