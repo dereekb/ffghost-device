@@ -1,10 +1,8 @@
-FROM python:3.5-buster
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-  hostapd dnsmasq
+FROM balenalib/raspberry-pi-debian-python:latest
 
 # Install python libraries through pip
-# RUN pip3 install 
+RUN pip3 install -U https://github.com/alphacep/vosk-api/releases/download/0.3.7/vosk-0.3.7-cp38-cp38-macosx_10_12_x86_64.whl
+RUN pip3 install note-python pymongo
 
 # Set the work directory
 WORKDIR /code
