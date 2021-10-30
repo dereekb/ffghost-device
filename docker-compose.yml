@@ -1,4 +1,4 @@
-version: '2'
+version: "2"
 services:
   #ffghost-nginx:
   #  image: nginx:1.19.4
@@ -24,10 +24,13 @@ services:
   ffghost-engine:
     restart: always
     build: ./engine
+    privileged: true
+    labels:
+      - "io.balena.features.kernel-modules=1"
     devices:
       - /dev/snd:/dev/snd
     # depends_on:
-     #- "ffghost-mongo"
+    #- "ffghost-mongo"
   # ffghost-mongo:
   #  image: mongo:4.4.8
   #  ports:
