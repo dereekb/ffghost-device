@@ -1,3 +1,4 @@
 #!/bin/bash
 echo "================ Starting FFGhost ================"
-exec python3 ./ffghost.py
+# exec ls /code/model/vosk-model-small-en-us-0.15
+exec python3 /code/ffghost.py
