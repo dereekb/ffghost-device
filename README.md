@@ -17,8 +17,16 @@ You can deploy changes made to the gateway device by pushing your changes using 
 ## Local Deploy
 https://www.balena.io/docs/learn/develop/local-mode/
 
+First scan for the device via:
+
+```
+sudo balena scan
+```
+
+Then copy the host and use it for the following:
+
 Example:
 
 ```
-balena push 63ec46c.local
+balena push 3515679.local
 ```
