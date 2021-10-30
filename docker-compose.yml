@@ -18,7 +18,7 @@ services:
       - ./server:/code
     ports:
      - "3000"
-     - "4200:3000"
+     - "4410:3000"
     depends_on:
      - "ffghost-mongo"
   ffghost-engine:

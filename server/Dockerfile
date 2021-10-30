@@ -1,7 +1,7 @@
 FROM node:14.14-buster
 
 # Set the working directory in the container to /code
-WORKDIR /parent/server
+WORKDIR /code
 
 # Install Nest CLI
 RUN npm i -g @nestjs/cli
@@ -13,7 +13,7 @@ COPY ./package.json .
 RUN npm install
 
 # Expose the current folder/volume
-VOLUME ["/parent/server"]
+VOLUME ["/code"]
 
 # Run Project by default
 CMD sh d-run.sh
