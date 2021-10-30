@@ -1,7 +1,11 @@
-FROM balenalib/raspberry-pi-debian-python:latest
+FROM balenalib/raspberrypi3-python:3.9
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  hostapd dnsmasq gcc musl-dev
+RUN apt-get install -y --no-install-recommends libffi-dev python3-dev
 
 # Install python libraries through pip
-RUN pip3 install -U https://github.com/alphacep/vosk-api/releases/download/0.3.7/vosk-0.3.7-cp38-cp38-macosx_10_12_x86_64.whl
+RUN pip3 install vosk
 RUN pip3 install note-python pymongo
 
 # Set the work directory
