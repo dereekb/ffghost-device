@@ -4,6 +4,10 @@ Make Safe Techathon 2021
 # Balena
 Balena is a cloud device management service used to manage the Raspberry Pis used in this project.
 
+Install Balina CLI
+
+https://github.com/balena-io/balena-cli/blob/master/INSTALL-MAC.md
+
 ## Logging In
 Before using Balena, you will have to log in locally:
 

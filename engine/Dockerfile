@@ -10,7 +10,7 @@ RUN pip3 install sounddevice
 
 # Download Model from https://alphacephei.com/vosk/models
 RUN mkdir /dl
-RUN wget http://alphacephei.com/vosk/models/vosk-model-en-us-0.22.zip -O /dl/model.zip
+RUN wget http://alphacephei.com/vosk/models/vosk-model-small-en-us-0.15.zip -O /dl/model.zip
 
 # Extract zip file
 RUN mkdir /code
