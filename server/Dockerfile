@@ -7,10 +7,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # RUN pip3 install 
 
 # Set the work directory
-WORKDIR /usr/src/app
-
-# Copy files over
-COPY ./scripts ./scripts
+WORKDIR /code
 
 # Run Gateway
 CMD ["./entry.sh"]

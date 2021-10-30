@@ -2,7 +2,9 @@ version: '2'
 services:
   ffghost-python-server:
     restart: always
-    build: ./src
+    build: ./server
+    volumes:
+      - ./server:/code
   ffghost-nginx:
     image: nginx:1.19.4
     ports:
